@@ -1,0 +1,146 @@
+/* Default Statusbar background */
+.statusbar {
+  background: rgb(36, 76, 155) !important;
+  /* We can add transition for smooth color animation */
+  transition: 400ms;
+}
+.badge {
+    width: 55px;
+    /* height: auto!important; */
+}
+
+#basicMap {
+          width: 100%;
+          height: 300px;
+          margin: 0;
+      }
+.promcan {
+    background-color: rgba(191, 245, 163, 0.6);
+}
+
+.dirprom {
+    background-color: rgba(93, 199, 27, 0.6);
+}
+.relcan {
+    background-color: rgba(245, 163, 163, 0.6);
+}
+.dirrel {
+    background-color: rgba(255, 0, 0, 0.6);
+}
+.nothing {
+  background-color: rgb(236, 189, 62) !important;
+}
+tr {
+  background-color: rgb(36, 76, 155);
+}
+.ios-style-title {
+    margin-left: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: x-large;
+    font-weight: bolder;
+}
+.posts-header {
+  height: 14vw;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+}
+
+blockquote {
+    background: rgba(37, 76, 155, 0.1);
+    border-left: 10px solid rgb(37, 76, 155);
+    margin: 1.2em 0;
+    padding: 0.5em 1.5em;
+    color: rgb(39, 0, 0);
+}
+mark {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 3px 10px 3px 10px;
+}
+.card-content-post{
+  min-height: 180px;
+}
+p.date {
+    color: rgb(128, 128, 128);
+    font-weight: bold;
+}
+
+/* Theme */
+.navbar,
+.toolbar,
+.item-divider,
+.list .item-inner:after,
+.navbar:after,
+.ios .toolbar:before {
+    background-color: rgb(36, 76, 155) !important;
+}
+.link,
+.item-title,
+.item-text,
+.item-after {
+  color: rgb(36, 76, 155) !important;
+}
+i, .tabbar-label,
+.ios-style-title,
+.item-divider,
+.sheet-close,
+th,
+.title,
+th.label-cell {
+    color: rgb(236, 189, 62);
+}
+.tab-link-highlight,
+ ul,
+ .list ul:before,
+ .list ul:after {
+    background-color: rgb(236, 189, 62) !important;
+}
+.page-content,
+.badge {
+    background-color: rgb(28, 56, 115) !important;
+}
+label.item-radio input[type="radio"]:checked ~ .icon-radio,
+label.item-radio input[type="radio"]:checked ~ * .icon-radio,
+.radio input[type="radio"]:checked ~ .icon-radio {
+  border-color: rgb(28, 56, 115) !important;
+}
+label.item-radio input[type="radio"]:checked ~ .icon-radio:after,
+label.item-radio input[type="radio"]:checked ~ * .icon-radio:after,
+.radio input[type="radio"]:checked ~ .icon-radio:after {
+  background-color: rgb(28, 56, 115) !important;
+}
+.sheet-modal.smart-select-sheet.modal-in {
+    border-top: 1px solid rgb(236, 189, 62) !important;
+}
+.list .item-link .item-inner,
+.links-list a,
+.media-list .item-link .item-title-row,
+li.media-item .item-link .item-title-row,
+.media-list.chevron-center .item-link .item-inner,
+.media-list .chevron-center .item-link .item-inner,
+.media-list .item-link.chevron-center .item-inner,
+li.media-item.chevron-center .item-link .item-inner,
+li.media-item .chevron-center .item-link .item-inner,
+li.media-item .item-link.chevron-center .item-inner {
+  background-size: 8px 13px;
+  background-repeat: no-repeat;
+  background-position: 95% center;
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjAiIHk9IjAiIHdpZHRoPSI4IiBoZWlnaHQ9IjEzIiB2aWV3Qm94PSIwLCAwLCA4LCAxMyI+CiAgPGcgaWQ9IkViZW5lXzEiPgogICAgPHBhdGggZD0iTTcuODY0LDYuNSBMMS41LDAuMTM2IEwwLjA4NiwxLjU1IEw1LjAzNiw2LjUgTDAuMDg2LDExLjQ1IEwxLjUsMTIuODY0IEw3LjE1Nyw3LjIwNyB6IiBmaWxsPSIjMjQ0QzlCIi8+CiAgPC9nPgo8L3N2Zz4K');
+}
+.tab-link-active i.icon.f7-icons,
+.tab-link-active span.tabbar-label {
+    color: rgb(255, 255, 255) !important;
+}
+@media (max-width: 480px) and (orientation: portrait){
+.data-table.data-table-collapsible.rangliste-row td:not(.checkbox-cell):before {
+  width:20%;
+}
+.posts-header {
+  height: 35vw;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+}
+}
