@@ -802,6 +802,12 @@ $(document)
 		}
 
 	});
+$(document)
+	.on('click', '.abort-xhr', function() {
+    $('.dialog-backdrop').hide();    
+    $('.dialog').hide();
+    
+});
 
 function teamselected(teamid, listtyp) {
 	////console.log(teamid, listtyp);
@@ -837,6 +843,8 @@ function shvtest(gameid,teamid,typ) {
     $('.dialog').show();
 	Framework7.request.get('serv.php?f=getplayerstats&gameid=' + gameid+'&teamid='+teamid, function(stat) {
 		statsdata = JSON.parse(stat);
+        console.log(statsdata);
+        if(statsdata.length > 0){
 		home = jQuery.grep(statsdata, function(a) {
 			return a.isHome == 1;
 		});
@@ -1072,6 +1080,7 @@ function shvtest(gameid,teamid,typ) {
 		output += '</div></div>';
 		$$('.playerstat')
 			.html(output);
+        }
         $('.dialog-backdrop').hide();    
     $('.dialog').hide();
 	});
