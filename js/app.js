@@ -265,7 +265,8 @@ function spieldetailspopup() {
 
 	// Obtain the default map types from the platform object:
 	geocode(platform, adresse, stadt, plz)
-	shvtest(data.gameId,typ);
+    console.log(data);
+	shvtest(data.gameId,data.leagueShort,typ);
 }
 
 function createteamslist(data, listtyp) {
@@ -825,14 +826,16 @@ function teamselected(teamid, listtyp) {
 	}
 }
 
-function shvtest(gameid,typ) {
+function shvtest(gameid,teamid,typ) {
 	if ($$(".statslist")
 		.length > 0) {
 		$$(".statslist")
 			.remove()
 	}
     if (typ === "Resultate" || typ === "Homeresultat"){
-	Framework7.request.get('serv.php?f=getplayerstats&gameid=' + gameid, function(stat) {
+    $('.dialog-backdrop').show();    
+    $('.dialog').show();
+	Framework7.request.get('serv.php?f=getplayerstats&gameid=' + gameid+'&teamid='+teamid, function(stat) {
 		statsdata = JSON.parse(stat);
 		home = jQuery.grep(statsdata, function(a) {
 			return a.isHome == 1;
@@ -862,6 +865,10 @@ function shvtest(gameid,typ) {
 		homeofficial = jQuery.grep(home, function(a) {
 			return a.function == "teamofficial";
 		});
+        homeofficial.sort(function(a, b){
+    if(a.dressString < b.dressString) { return -1; }
+    if(a.dressString > b.dressString) { return 1; }
+    return 0;});
 		//console.log(homeofficial);
 		output += '<div class="col-100 tablet-50"><div class="statstitleteam">' + home[0].teamName + '</div>' +
 			'<div class="statstitle">Spieler/Innen</div>' +
@@ -869,9 +876,12 @@ function shvtest(gameid,typ) {
 			'<tr>' +
 			'<th class="numeric-cell">Nr.</th>' +
 			'<th class="label-cell">Name</th>' +
-			'<th class="numeric-cell">T</th>' +
-			'<th class="numeric-cell">7m</th>' +
-			'<th class="numeric-cell">TF</th>' +
+			'<th class="numeric-cell">T</th>'+
+        '<th class="numeric-cell">7m</th>';
+        if(home[0].dataSource == "liveticker"){
+            output+='<th class="numeric-cell">%</th>'
+        }
+        output+='<th class="numeric-cell">TF</th>' +
 			'<th class="numeric-cell">V</th>' +
 			'<th class="numeric-cell">2</th>' +
 			'<th class="numeric-cell">D</th>' +
@@ -883,10 +893,26 @@ function shvtest(gameid,typ) {
 			} else {
 				tf = homeplayer[i].technicalErrors;
 			};
+            if (homeplayer[i].scoreAndShot.length < 1){
+                goals = homeplayer[i].totalScore;
+            }else{
+                goals = homeplayer[i].scoreAndShot;
+            }
+            if (homeplayer[i].scorePercentage == null){
+                prozent = 0;
+            }else{
+                prozent = homeplayer[i].scorePercentage;
+            }
 			output += '<tr><td class="label-cell statscell">' + homeplayer[i].dressNr + '</td>';
 			output += '<td class="label-cell statsname">' + homeplayer[i].playerName + '</td>';
-			output += '<td class="label-numeric statscell">' + homeplayer[i].totalScore + '</td>';
+			if(homeplayer[i].dataSource == "liveticker"){
+			output += '<td class="label-numeric statscell">' + goals + '</td>';
+			output += '<td class="label-numeric statscell">' + homeplayer[i].scoreAndShot7m + '</td>';
+            output+='<td class="label-numeric statscell">' + prozent + '</th>'
+            }else{
+            output += '<td class="label-numeric statscell">' + homeplayer[i].totalScore + '</td>';
 			output += '<td class="label-numeric statscell">' + homeplayer[i].totalScore7m + '</td>';
+            }
 			output += '<td class="label-numeric statscell">' + tf + '</td>';
 			output += '<td class="label-numeric statscell">' + homeplayer[i].totalWarnings + '</td>';
 			output += '<td class="label-numeric statscell">' + homeplayer[i].total2Minutes + '</td>';
@@ -950,6 +976,10 @@ function shvtest(gameid,typ) {
 		guestofficial = jQuery.grep(guest, function(a) {
 			return a.function == "teamofficial";
 		});
+        guestofficial.sort(function(a, b){
+    if(a.dressString < b.dressString) { return -1; }
+    if(a.dressString > b.dressString) { return 1; }
+    return 0;});
 		output += '<div class="col-100 tablet-50"><div class="statstitleteam">' + guest[0].teamName + '</div>' +
 			'<div class="statstitle">Spieler/Innen</div>' +
 			'<table class="statstable"><thead>' +
@@ -957,8 +987,11 @@ function shvtest(gameid,typ) {
 			'<th class="numeric-cell">Nr.</th>' +
 			'<th class="label-cell">Name</th>' +
 			'<th class="numeric-cell">T</th>' +
-			'<th class="numeric-cell">7m</th>' +
-			'<th class="numeric-cell">TF</th>' +
+			'<th class="numeric-cell">7m</th>';
+        if(guest[0].dataSource == "liveticker"){
+            output+='<th class="numeric-cell">%</th>'
+        }
+        output+='<th class="numeric-cell">TF</th>' +
 			'<th class="numeric-cell">V</th>' +
 			'<th class="numeric-cell">2</th>' +
 			'<th class="numeric-cell">D</th>' +
@@ -970,10 +1003,26 @@ function shvtest(gameid,typ) {
 			} else {
 				tf = guestplayer[i].technicalErrors;
 			};
+			if (guestplayer[i].scoreAndShot.length < 1){
+                goals = guestplayer[i].totalScore;
+            }else{
+                goals = guestplayer[i].scoreAndShot;
+            }
+            if (guestplayer[i].scorePercentage == null){
+                prozent = 0;
+            }else{
+                prozent = guestplayer[i].scorePercentage;
+            }
 			output += '<tr><td class="label-cell statscell">' + guestplayer[i].dressNr + '</td>';
 			output += '<td class="label-cell statsname">' + guestplayer[i].playerName + '</td>';
-			output += '<td class="label-numeric statscell">' + guestplayer[i].totalScore + '</td>';
+			if(guestplayer[i].dataSource == "liveticker"){
+			output += '<td class="label-numeric statscell">' + goals + '</td>';
+			output += '<td class="label-numeric statscell">' + guestplayer[i].scoreAndShot7m + '</td>';
+            output+='<td class="label-numeric statscell">' + prozent + '</th>'
+            }else{
+            output += '<td class="label-numeric statscell">' + guestplayer[i].totalScore + '</td>';
 			output += '<td class="label-numeric statscell">' + guestplayer[i].totalScore7m + '</td>';
+            }
 			output += '<td class="label-numeric statscell">' + tf + '</td>';
 			output += '<td class="label-numeric statscell">' + guestplayer[i].totalWarnings + '</td>';
 			output += '<td class="label-numeric statscell">' + guestplayer[i].total2Minutes + '</td>';
@@ -1023,6 +1072,8 @@ function shvtest(gameid,typ) {
 		output += '</div></div>';
 		$$('.playerstat')
 			.html(output);
+        $('.dialog-backdrop').hide();    
+    $('.dialog').hide();
 	});
 }
 }
