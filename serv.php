@@ -133,6 +133,7 @@ function updaterangliste( $typ, $dbwhere, $auth, $conn )
 function getplayerstats()
 {
   $gameid = $_GET[ 'gameid' ];
+    $teamid = $_GET[ 'teamid' ];
     $jetzt      = date( 'Y-m-d H:i:s' );
   $servername = "localhost:3306";
     $username   = "bn_wordpress";
@@ -145,7 +146,7 @@ function getplayerstats()
         //mysqli_set_charset($conn,"utf8");
     }
     a:
-    $query = mysqli_query($conn, "SELECT * FROM wp_shv_plugin WHERE name ='gamestats'");
+    $query = mysqli_query($conn, "SELECT * FROM wp_shv_plugin WHERE name ='gamestats-$teamid'");
     //print_r($query);
 
     if (!$query)
@@ -192,8 +193,8 @@ if(mysqli_num_rows($query) > 0){
     if(count($dataarr[$gameid])> 0){
     $datajson =json_encode($dataarr);
     $datajson2 = $conn->real_escape_string($datajson);
-    print_r(json_encode($dataarr[$gameid]));
-    $sql8  = "UPDATE wp_shv_plugin SET time='$jetzt',data='$datajson2' WHERE name='gamestats'";
+    //print_r(json_encode($dataarr[$gameid]));
+    $sql8  = "UPDATE wp_shv_plugin SET time='$jetzt',data='$datajson2' WHERE name='gamestats-$teamid'";
     if ( $conn->query( $sql8 ) === TRUE ) {
             print_r(json_encode($dataarr[$gameid]));
     } else {
@@ -206,7 +207,7 @@ if(mysqli_num_rows($query) > 0){
     }
 
 }else{
-$sql9 = "INSERT INTO `wp_shv_plugin` (`id`, `time`, `name`, `data`) VALUES (NULL, '$jetzt', 'gamestats', '{}')";
+$sql9 = "INSERT INTO `wp_shv_plugin` (`id`, `time`, `name`, `data`) VALUES (NULL, '$jetzt', 'gamestats-$teamid', '{}')";
 if ($conn->query($sql9) === TRUE) {
     goto a;
 } else {
